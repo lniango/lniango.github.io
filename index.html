@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Louis Niango — Portfolio</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+</head>
+<body>
+  <nav>
+    <div class="container">
+      <h1 class="logo">Louis Niango</h1>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#experiences">Experiences</a></li>
+        <li><a href="#skills">Competences</a></li>
+        <li><a href="#certifications">Certifications</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="hero bg-light py-4">
+    <div class="container d-flex align-items-center gap-4">
+      <img src="images\identité.jpg" alt="Portrait de Louis Niango" class="avatar rounded-circle shadow" width="120">
+      <div>
+        <h2 class="fw-bold">Louis Niango</h2>
+        <p id="typewriter" class="mb-1"></p>
+        <p class="mb-1">
+          <i class="bi bi-telephone-fill text-primary me-2"></i>
+          <a href="tel:+33623753013" class="text-dark text-decoration-none">+33 6 23 75 30 13</a>
+        </p>
+        <p class="mb-1">
+          <i class="bi bi-envelope-fill text-danger me-2"></i>
+          <a href="mailto:louis.niango14@gmail.com" class="text-dark text-decoration-none">louis.niango14@gmail.com  /  </a>
+          <a href="mailto:cednian@gmail.com" class="text-dark text-decoration-none">cednian@gmail.com</a>
+        </p>
+        <p>
+          <i class="bi bi-linkedin text-primary me-2"></i>
+          <a href="https://www.linkedin.com/in/louis-niango-a2025b20a?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank"
+             class="text-dark text-decoration-none">Louis_Niango</a>
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <section id="projects">
+      <h3>Projects</h3>
+      <div class="filters">
+        <button onclick="filterProjects('all')" class="neu-btn">All</button>
+        <button onclick="filterProjects('acad')" class="neu-btn">Academic</button>
+        <button onclick="filterProjects('perso')" class="neu-btn">Personal</button>
+      </div>
+      <div id="projects-list">
+        <div class="project" data-type="perso" onclick="openProject('gravite')">
+          <h4>Gravitational network</h4>
+          <p>Approximation of gravitational potential in PyTorch.</p>
+        </div>
+        <div class="project" data-type="perso" onclick="openProject('series_forecasting')">
+          <h4>Time-series forecasting</h4>
+          <p>Time-series prediction problem on a simulated sine wave.</p>
+        </div>
+        <div class="project" data-type="perso" onclick="openProject('gru_classif')">
+          <h4>Classification with GRU</h4>
+          <p>Reuters Newswire Classification with GRU.</p>
+        </div>
+        <div class="project" data-type="perso" onclick="openProject('denoising')">
+          <h4>Image denoising</h4>
+          <p>Image denoising using Autoencoders.</p>
+        </div>
+        <div class="project" data-type="perso" onclick="openProject('med')">
+          <h4>Pneumonia computer-assisted diagnosis</h4>
+          <p>Medical image classification model to assist with computer-aided diagnosis.</p>
+        </div>
+        <div class="project" data-type="acad" onclick="openProject('cifar10')">
+          <h4>Classification CIFAR-10</h4>
+          <p>CNN network for images classification in Pytorch.</p>
+        </div>
+        <div class="project" data-type="acad" onclick="openProject('opengl')">
+          <h4>Rendering with OpenGL</h4>
+          <p>rendering of triangles and more complex 3D models with OpenGL.</p>
+        </div>
+        <div class="project" data-type="acad" onclick="openProject('indus')">
+          <h4>Reverse engineering for 3D printing</h4>
+          <p>3D reconstruction from GCode.</p>
+        </div>
+        <div class="project" data-type="perso" onclick="openProject('cisro')">
+          <h4>CSIRO - Image2Biomass Prediction</h4>
+          <p>Multimodal Biomass Estimation from Aerial Images.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="py-5">
+      <h3 class="fw-bold mb-4">About Me</h3>
+      <div class="about-box shadow-sm p-4 rounded bg-white" style="text-align: justify;">
+        <p>
+          I am a Digital Imaging Engineer graduated from ESIR (University of Rennes), passionate about
+          deep learning applied to computer vision, image processing, and video compression. I enjoy working
+          at the intersection of mathematics and computer science.
+        </p>
+        <p>
+          What motivates me: understanding how models perceive, reconstruct, or transform visual data,
+          optimizing GPU pipelines, and continuously learning cutting-edge technologies.
+        </p>
+        <p>
+          I am <strong>currently looking for:</strong><br>
+          A full-time position or PhD in computer vision / image processing and machine learning.<br>
+        </p>
+        <p>
+          Outside of work, I am interested in sports (basketball and football), and AI technology watch.
+        </p>
+      </div>
+      <div class="mt-3">
+        <a href="#contact" class="btn btn-primary">Get in touch</a>
+      </div>
+    </section>
+
+    <section id="experiences" style="max-width: 800px; margin: auto;">
+      <h3>Experiences</h3>
+      <div style="display: flex; flex-direction: column; gap: 1em; margin-top: 1em;">
+        <div style="background: #f9f9f9; padding: 1em 1.2em; border-radius: 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+          <h4 style="margin: 0; color: #000204;">Mars - Septembre 2025: Dynamixyz / Take Two Interactive</h4>
+          <p style="margin: 0.3em 0 0.5em; font-style: italic;">Neural video compression for HMC (Head-Mounted Cameras)</p>
+          <ul style="padding-left: 1.2em; list-style-type: disc; color: #555;">
+            <li>Studied state-of-the-art neural video compression techniques.</li>
+            <li>Implemented convolutional neural networks and optimized video processing pipelines.</li>
+            <li>Documented and presented technical results.</li>
+            <li>Achieved 40% compression rate with PSNR of 33 dB.</li>
+          </ul>
+        </div>
+        <div style="background: #f9f9f9; padding: 1em 1.2em; border-radius: 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+          <h4 style="margin: 0; color: #000204;">Juin - Octobre 2024: InterDigital R&D</h4>
+          <p style="margin: 0.3em 0 0.5em; font-style: italic;">Real-time C++ video player development</p>
+          <ul style="padding-left: 1.2em; list-style-type: disc; color: #555;">
+            <li>Studied DeckLink SDK and integrated with professional video capture systems.</li>
+            <li>Converted YUV v210 to UYVY for high-performance real-time streaming.</li>
+            <li>Developed user interface in C/C++ for video control.</li>
+            <li>Achieved frame rates of 3–10 ms per frame with 100% frames successfully captured.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <button id="topBtn" class="neu-btn">⬆️</button>
+
+    <section id="skills" class="py-5 bg-light">
+      <h3 class="mb-4 fw-bold">Competences</h3>
+      <div class="container">
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="card shadow-sm text-center p-3">
+              <i class="bi bi-code-slash fs-1 text-primary"></i>
+              <h5 class="mt-3">Python | C++</h5>
+              <p class="text-muted">Machine Learning, Data Science | Image, video processing</p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card shadow-sm text-center p-3">
+              <i class="bi bi-gpu-card fs-1 text-success"></i>
+              <h5 class="mt-3">CUDA</h5>
+              <p class="text-muted">Optimisation GPU</p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card shadow-sm text-center p-3">
+              <i class="bi bi-robot fs-1 text-danger"></i>
+              <h5 class="mt-3">Computer Vision</h5>
+              <p class="text-muted">OpenCV, PyTorch</p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card shadow-sm text-center p-3">
+              <i class="bi bi-camera-reels fs-1 text-danger"></i>
+              <h5 class="mt-3">Video technologies</h5>
+              <p class="text-muted">JPEG, H.264, HEVC</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- === CERTIFICATIONS === -->
+    <section id="certifications" class="py-5">
+      <h3 class="mb-4 fw-bold">Certifications</h3>
+      <div class="cert-list">
+
+        <div class="cert-item" onclick="openCert('certifications/Certif.pdf', 'IBM — Deep Learning & Reinforcement Learning')" style="cursor:pointer;">
+          <div class="cert-icon">
+            <i class="bi bi-patch-check-fill"></i>
+          </div>
+          <div class="cert-info">
+            <span class="cert-title">Deep Learning & Reinforcement Learning</span>
+            <span class="cert-issuer">IBM</span>
+          </div>
+          <span class="cert-badge cert-badge--ibm">IBM</span>
+        </div>
+
+        <div class="cert-item" onclick="openCert('certifications/Coursera VXYEWM1LXBZG.pdf', 'Google Cloud — MLOps Vertex AI')" style="cursor:pointer;">
+          <div class="cert-icon">
+            <i class="bi bi-patch-check-fill"></i>
+          </div>
+          <div class="cert-info">
+            <span class="cert-title">MLOps — Vertex AI</span>
+            <span class="cert-issuer">Google Cloud</span>
+          </div>
+          <span class="cert-badge cert-badge--google">Google Cloud</span>
+        </div>
+
+        <div class="cert-item" onclick="openCert('certifications/Certification.pdf', 'CodinGame — C++ Programming')" style="cursor:pointer;">
+          <div class="cert-icon">
+            <i class="bi bi-patch-check-fill"></i>
+          </div>
+          <div class="cert-info">
+            <span class="cert-title">C++ Programming</span>
+            <span class="cert-issuer">CodinGame</span>
+          </div>
+          <span class="cert-badge cert-badge--codingame">CodinGame</span>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="contact" class="py-5 bg-light">
+      <h3 class="text-center fw-bold mb-5">Contact</h3>
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-12">
+            <form id="contact-form" action="https://formspree.io/f/xvgbnkzn" method="POST" class="shadow p-4 rounded bg-white">
+              <div class="mb-3">
+                <input type="text" name="name" id="name" class="form-control" placeholder="Name" required>
+              </div>
+              <div class="mb-3">
+                <input type="email" name="email" id="email" class="form-control" placeholder="Email" required>
+              </div>
+              <div class="mb-3">
+                <textarea name="message" id="message" class="form-control" rows="5" placeholder="Message" required></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary w-100 neu-btn">Send</button>
+              <p id="form-status" class="mt-3 text-center"></p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>© 2025 Louis Niango — Portfolio</p>
+  </footer>
+
+  <div id="project-modal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h3 id="modal-title"></h3>
+      <div id="modal-img-container" class="d-flex flex-wrap gap-2"></div>
+      <video id="modal-video" class="modal-video" autoplay muted controls></video>
+      <p id="modal-desc"></p>
+      <p><strong>Technologies:</strong> <span id="modal-tech"></span></p>
+      <p id="modal-link"></p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  <script src="typewriter.js"></script>
+</body>
+</html>
