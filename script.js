@@ -1,5 +1,5 @@
 // === SCRIPT.JS — Louis Niango Portfolio ===
-
+//console.log("SCRIPT LOADED");
 // ─── CUSTOM CURSOR ───
 const cursor = document.getElementById('cursor');
 const trail = document.getElementById('cursorTrail');
@@ -183,7 +183,21 @@ const projectData = {
     tech: "Python, PyTorch, DINOv2, EfficientNet, Albumentations, NumPy, Pandas, Kaggle",
     link: "https://www.kaggle.com/code/cedricniango/dino-predictor",
     tags: ["Deep Learning", "Computer Vision", "Multimodal", "Regression"]
-  }
+  },
+  celltrack: {
+  title: "Cell Segmentation & Tracking",
+  desc: "Comparative study of segmentation methods applied to temporal tracking of HeLa cells (DIC-C2DH-HeLa dataset, Cell Tracking Challenge). The goal is to segment cells frame-by-frame and track their evolution over time.\n\nClassical methods (thresholding, Canny, watershed) are compared against a deep learning approach (U-Net). The pipeline evaluates robustness under low-contrast microscopy conditions typical of DIC imaging.",
+  tech: "OpenCV, Scikit-image, SciPy, PyTorch, U-Net",
+  link: "https://github.com/lniango/Segmentation_tracking",
+  tags: ["Medical Imaging", "Segmentation", "Tracking", "Deep Learning"]
+},
+reconstruction3d: {
+  title: "3D Object Reconstruction",
+  desc: "Pipeline for 3D reconstruction of objects from multi-view images. The project explores classical computer vision techniques (Structure-from-Motion, multi-view geometry) and modern learning-based approaches for depth estimation and reconstruction.\n\nThe goal is to generate consistent 3D representations (point clouds / meshes) from image sequences, bridging geometric methods and deep learning approaches.",
+  tech: "OpenCV, COLMAP, Multi-view Geometry, NeRF (concepts), Python",
+  link: "https://github.com/lniango/3D_reconstruction",
+  tags: ["3D Vision", "Reconstruction", "Geometry", "Deep Learning"]
+}
 };
 
 // ─── OPEN PROJECT MODAL ───
