@@ -1,249 +1,484 @@
 <!doctype html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Louis Niango — Portfolio</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&family=Cabinet+Grotesk:wght@400;500;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <nav>
-    <div class="container">
-      <h1 class="logo">Louis Niango</h1>
+
+  <!-- CURSOR -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-trail" id="cursorTrail"></div>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a class="logo" href="#">LN<span class="logo-dot">.</span></a>
       <ul class="nav-links">
         <li><a href="#about">About</a></li>
         <li><a href="#projects">Projects</a></li>
-        <li><a href="#experiences">Experiences</a></li>
-        <li><a href="#skills">Competences</a></li>
-        <li><a href="#certifications">Certifications</a></li>
+        <li><a href="#experiences">Experience</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#certifications">Certs</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
+      <div class="nav-right">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+          <span class="toggle-icon">◐</span>
+        </button>
+        <a href="CV_ML.pdf" class="nav-cta" download>
+          <i class="bi bi-download"></i> CV
+        </a>
+      </div>
     </div>
   </nav>
 
-  <header class="hero bg-light py-4">
-    <div class="container d-flex align-items-center gap-4">
-      <img src="images\identité.jpg" alt="Portrait de Louis Niango" class="avatar rounded-circle shadow" width="120">
-      <div>
-        <h2 class="fw-bold">Louis Niango</h2>
-        <p id="typewriter" class="mb-1"></p>
-        <p class="mb-1">
-          <i class="bi bi-telephone-fill text-primary me-2"></i>
-          <a href="tel:+33623753013" class="text-dark text-decoration-none">+33 6 23 75 30 13</a>
-        </p>
-        <p class="mb-1">
-          <i class="bi bi-envelope-fill text-danger me-2"></i>
-          <a href="mailto:louis.niango14@gmail.com" class="text-dark text-decoration-none">louis.niango14@gmail.com  /  </a>
-          <a href="mailto:cednian@gmail.com" class="text-dark text-decoration-none">cednian@gmail.com</a>
-        </p>
-        <p>
-          <i class="bi bi-linkedin text-primary me-2"></i>
-          <a href="https://www.linkedin.com/in/louis-niango-a2025b20a?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank"
-             class="text-dark text-decoration-none">Louis_Niango</a>
-        </p>
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-bg-grid"></div>
+    <div class="hero-orb hero-orb-1"></div>
+    <div class="hero-orb hero-orb-2"></div>
+
+    <div class="hero-inner">
+      <div class="hero-label reveal-up">
+        <span class="label-dot"></span>
+        Open to Research &amp; Full-time
+      </div>
+
+      <div class="hero-name reveal-up" style="animation-delay:.1s">
+        <img src="images/identité.jpg" alt="Louis Niango" class="avatar">
+        <div>
+          <h1>Louis<br><em>Niango</em></h1>
+        </div>
+      </div>
+
+      <p class="hero-sub reveal-up" style="animation-delay:.2s">
+        <span id="typewriter"></span><span class="cursor-blink">|</span>
+      </p>
+
+      <div class="hero-contacts reveal-up" style="animation-delay:.3s">
+        <a href="mailto:louis.niango14@gmail.com" class="contact-chip">
+          <i class="bi bi-envelope-fill"></i> louis.niango14@gmail.com
+        </a>
+        <a href="https://github.com/lniango" target="_blank" class="contact-chip">
+          <i class="bi bi-github"></i> lniango
+        </a>
+        <a href="https://www.linkedin.com/in/louis-niango-a2025b20a" target="_blank" class="contact-chip">
+          <i class="bi bi-linkedin"></i> Louis_Niango
+        </a>
+        <a href="tel:+33623753013" class="contact-chip">
+          <i class="bi bi-telephone-fill"></i> +33 6 23 75 30 13
+        </a>
+      </div>
+
+      <div class="hero-actions reveal-up" style="animation-delay:.4s">
+        <a href="CV_ML.pdf" class="btn-primary" download>
+          <i class="bi bi-download"></i> Download Résumé
+        </a>
+        <a href="#projects" class="btn-ghost">View Projects <i class="bi bi-arrow-down"></i></a>
       </div>
     </div>
-  </header>
 
-  <main class="container">
+    <div class="scroll-hint reveal-up" style="animation-delay:.7s">
+      <div class="scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
 
-    <section id="projects">
-      <h3>Projects</h3>
-      <div class="filters">
-        <button onclick="filterProjects('all')" class="neu-btn">All</button>
-        <button onclick="filterProjects('acad')" class="neu-btn">Academic</button>
-        <button onclick="filterProjects('perso')" class="neu-btn">Personal</button>
-      </div>
-      <div id="projects-list">
-        <div class="project" data-type="perso" onclick="openProject('gravite')">
-          <h4>Gravitational network</h4>
-          <p>Approximation of gravitational potential in PyTorch.</p>
-        </div>
-        <div class="project" data-type="perso" onclick="openProject('series_forecasting')">
-          <h4>Time-series forecasting</h4>
-          <p>Time-series prediction problem on a simulated sine wave.</p>
-        </div>
-        <div class="project" data-type="perso" onclick="openProject('gru_classif')">
-          <h4>Classification with GRU</h4>
-          <p>Reuters Newswire Classification with GRU.</p>
-        </div>
-        <div class="project" data-type="perso" onclick="openProject('denoising')">
-          <h4>Image denoising</h4>
-          <p>Image denoising using Autoencoders.</p>
-        </div>
-        <div class="project" data-type="perso" onclick="openProject('med')">
-          <h4>Pneumonia computer-assisted diagnosis</h4>
-          <p>Medical image classification model to assist with computer-aided diagnosis.</p>
-        </div>
-        <div class="project" data-type="acad" onclick="openProject('cifar10')">
-          <h4>Classification CIFAR-10</h4>
-          <p>CNN network for images classification in Pytorch.</p>
-        </div>
-        <div class="project" data-type="acad" onclick="openProject('opengl')">
-          <h4>Rendering with OpenGL</h4>
-          <p>rendering of triangles and more complex 3D models with OpenGL.</p>
-        </div>
-        <div class="project" data-type="acad" onclick="openProject('indus')">
-          <h4>Reverse engineering for 3D printing</h4>
-          <p>3D reconstruction from GCode.</p>
-        </div>
-        <div class="project" data-type="perso" onclick="openProject('cisro')">
-          <h4>CSIRO - Image2Biomass Prediction</h4>
-          <p>Multimodal Biomass Estimation from Aerial Images.</p>
-        </div>
-      </div>
-    </section>
+  <main>
 
-    <section id="about" class="py-5">
-      <h3 class="fw-bold mb-4">About Me</h3>
-      <div class="about-box shadow-sm p-4 rounded bg-white" style="text-align: justify;">
-        <p>
-          I am a Digital Imaging Engineer graduated from ESIR (University of Rennes), passionate about
-          deep learning applied to computer vision, image processing, and video compression. I enjoy working
-          at the intersection of mathematics and computer science.
-        </p>
-        <p>
-          What motivates me: understanding how models perceive, reconstruct, or transform visual data,
-          optimizing GPU pipelines, and continuously learning cutting-edge technologies.
-        </p>
-        <p>
-          I am <strong>currently looking for:</strong><br>
-          A full-time position or PhD in computer vision / image processing and machine learning.<br>
-        </p>
-        <p>
-          Outside of work, I am interested in sports (basketball and football), and AI technology watch.
-        </p>
-      </div>
-      <div class="mt-3">
-        <a href="#contact" class="btn btn-primary">Get in touch</a>
-      </div>
-    </section>
-
-    <section id="experiences" style="max-width: 800px; margin: auto;">
-      <h3>Experiences</h3>
-      <div style="display: flex; flex-direction: column; gap: 1em; margin-top: 1em;">
-        <div style="background: #f9f9f9; padding: 1em 1.2em; border-radius: 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
-          <h4 style="margin: 0; color: #000204;">Mars - Septembre 2025: Dynamixyz / Take Two Interactive</h4>
-          <p style="margin: 0.3em 0 0.5em; font-style: italic;">Neural video compression for HMC (Head-Mounted Cameras)</p>
-          <ul style="padding-left: 1.2em; list-style-type: disc; color: #555;">
-            <li>Studied state-of-the-art neural video compression techniques.</li>
-            <li>Implemented convolutional neural networks and optimized video processing pipelines.</li>
-            <li>Documented and presented technical results.</li>
-            <li>Achieved 40% compression rate with PSNR of 33 dB.</li>
-          </ul>
+    <!-- ABOUT -->
+    <section id="about" class="section">
+      <div class="section-inner">
+        <div class="section-header">
+          <span class="section-number">01</span>
+          <h2 class="section-title">About Me</h2>
         </div>
-        <div style="background: #f9f9f9; padding: 1em 1.2em; border-radius: 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
-          <h4 style="margin: 0; color: #000204;">Juin - Octobre 2024: InterDigital R&D</h4>
-          <p style="margin: 0.3em 0 0.5em; font-style: italic;">Real-time C++ video player development</p>
-          <ul style="padding-left: 1.2em; list-style-type: disc; color: #555;">
-            <li>Studied DeckLink SDK and integrated with professional video capture systems.</li>
-            <li>Converted YUV v210 to UYVY for high-performance real-time streaming.</li>
-            <li>Developed user interface in C/C++ for video control.</li>
-            <li>Achieved frame rates of 3–10 ms per frame with 100% frames successfully captured.</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <button id="topBtn" class="neu-btn">⬆️</button>
-
-    <section id="skills" class="py-5 bg-light">
-      <h3 class="mb-4 fw-bold">Competences</h3>
-      <div class="container">
-        <div class="row g-4">
-          <div class="col-md-4">
-            <div class="card shadow-sm text-center p-3">
-              <i class="bi bi-code-slash fs-1 text-primary"></i>
-              <h5 class="mt-3">Python | C++</h5>
-              <p class="text-muted">Machine Learning, Data Science | Image, video processing</p>
-            </div>
+        <div class="about-grid">
+          <div class="about-text">
+            <p class="about-lead">Digital Imaging Engineer from ESIR — Université de Rennes.</p>
+            <p>Passionate about deep learning applied to computer vision, image processing, and video compression. I work at the intersection of mathematics and computer science — where elegant theory meets high-performance engineering.</p>
+            <p>What drives me: understanding how models perceive, reconstruct, or transform visual data, optimizing GPU pipelines, and staying at the frontier of research.</p>
+            <p>Currently seeking a <strong>PhD or full-time position</strong> in computer vision, image processing, and machine learning.</p>
+            <p class="about-hobbies">Outside of work: basketball, football, and following the latest in AI research.</p>
           </div>
-          <div class="col-md-4">
-            <div class="card shadow-sm text-center p-3">
-              <i class="bi bi-gpu-card fs-1 text-success"></i>
-              <h5 class="mt-3">CUDA</h5>
-              <p class="text-muted">Optimisation GPU</p>
+          <div class="about-stats">
+            <div class="stat-card">
+              <span class="stat-num">40%</span>
+              <span class="stat-label">Video compression achieved</span>
             </div>
-          </div>
-          <div class="col-md-4">
-            <div class="card shadow-sm text-center p-3">
-              <i class="bi bi-robot fs-1 text-danger"></i>
-              <h5 class="mt-3">Computer Vision</h5>
-              <p class="text-muted">OpenCV, PyTorch</p>
+            <div class="stat-card">
+              <span class="stat-num">33dB</span>
+              <span class="stat-label">PSNR quality metric</span>
             </div>
-          </div>
-          <div class="col-md-4">
-            <div class="card shadow-sm text-center p-3">
-              <i class="bi bi-camera-reels fs-1 text-danger"></i>
-              <h5 class="mt-3">Video technologies</h5>
-              <p class="text-muted">JPEG, H.264, HEVC</p>
+            <div class="stat-card">
+              <span class="stat-num">85%</span>
+              <span class="stat-label">Medical AI accuracy</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-num">&lt;10ms</span>
+              <span class="stat-label">Real-time frame rate</span>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- === CERTIFICATIONS === -->
-    <section id="certifications" class="py-5">
-      <h3 class="mb-4 fw-bold">Certifications</h3>
-      <div class="cert-list">
-
-        <div class="cert-item" onclick="openCert('certifications/Certif.pdf', 'IBM — Deep Learning & Reinforcement Learning')" style="cursor:pointer;">
-          <div class="cert-icon">
-            <i class="bi bi-patch-check-fill"></i>
-          </div>
-          <div class="cert-info">
-            <span class="cert-title">Deep Learning & Reinforcement Learning</span>
-            <span class="cert-issuer">IBM</span>
-          </div>
-          <span class="cert-badge cert-badge--ibm">IBM</span>
+    <!-- PROJECTS -->
+    <section id="projects" class="section section-dark">
+      <div class="section-inner">
+        <div class="section-header">
+          <span class="section-number">02</span>
+          <h2 class="section-title">Projects</h2>
         </div>
 
-        <div class="cert-item" onclick="openCert('certifications/Coursera VXYEWM1LXBZG.pdf', 'Google Cloud — MLOps Vertex AI')" style="cursor:pointer;">
-          <div class="cert-icon">
-            <i class="bi bi-patch-check-fill"></i>
-          </div>
-          <div class="cert-info">
-            <span class="cert-title">MLOps — Vertex AI</span>
-            <span class="cert-issuer">Google Cloud</span>
-          </div>
-          <span class="cert-badge cert-badge--google">Google Cloud</span>
+        <div class="filters">
+          <button onclick="filterProjects('all', this)" class="filter-btn active">All</button>
+          <button onclick="filterProjects('acad', this)" class="filter-btn">Academic</button>
+          <button onclick="filterProjects('perso', this)" class="filter-btn">Personal</button>
         </div>
 
-        <div class="cert-item" onclick="openCert('certifications/Certification.pdf', 'CodinGame — C++ Programming')" style="cursor:pointer;">
-          <div class="cert-icon">
-            <i class="bi bi-patch-check-fill"></i>
-          </div>
-          <div class="cert-info">
-            <span class="cert-title">C++ Programming</span>
-            <span class="cert-issuer">CodinGame</span>
-          </div>
-          <span class="cert-badge cert-badge--codingame">CodinGame</span>
-        </div>
+        <div id="projects-list">
 
-      </div>
-    </section>
-
-    <section id="contact" class="py-5 bg-light">
-      <h3 class="text-center fw-bold mb-5">Contact</h3>
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-12">
-            <form id="contact-form" action="https://formspree.io/f/xvgbnkzn" method="POST" class="shadow p-4 rounded bg-white">
-              <div class="mb-3">
-                <input type="text" name="name" id="name" class="form-control" placeholder="Name" required>
+          <div class="project-card" data-type="perso" onclick="openProject('cisro')">
+            <div class="project-card-inner">
+              <div class="project-tag">Deep Learning · Multimodal</div>
+              <h4>CSIRO — Image2Biomass</h4>
+              <p>Multimodal biomass estimation from aerial imagery combining DINOv2 and tabular metadata.</p>
+              <div class="project-footer">
+                <div class="tech-pills">
+                  <span>PyTorch</span><span>DINOv2</span><span>EfficientNet</span>
+                </div>
+                <span class="project-arrow">→</span>
               </div>
-              <div class="mb-3">
-                <input type="email" name="email" id="email" class="form-control" placeholder="Email" required>
-              </div>
-              <div class="mb-3">
-                <textarea name="message" id="message" class="form-control" rows="5" placeholder="Message" required></textarea>
-              </div>
-              <button type="submit" class="btn btn-primary w-100 neu-btn">Send</button>
-              <p id="form-status" class="mt-3 text-center"></p>
-            </form>
+            </div>
           </div>
+
+          <div class="project-card" data-type="perso" onclick="openProject('med')">
+            <div class="project-card-inner">
+              <div class="project-tag">Medical AI · Vision</div>
+              <h4>Pneumonia CAD</h4>
+              <p>ResNet18 model for computer-aided diagnosis on Chest X-Ray images, achieving 84.93% accuracy.</p>
+              <div class="project-footer">
+                <div class="tech-pills">
+                  <span>PyTorch</span><span>ResNet18</span><span>CNN</span>
+                </div>
+                <span class="project-arrow">→</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-card" data-type="perso" onclick="openProject('gravite')">
+            <div class="project-card-inner">
+              <div class="project-tag">Physics · Neural Networks</div>
+              <h4>Gravitational Network</h4>
+              <p>MLP approximating multi-body gravitational potential in N dimensions.</p>
+              <div class="project-footer">
+                <div class="tech-pills">
+                  <span>PyTorch</span><span>PCA</span><span>scikit-learn</span>
+                </div>
+                <span class="project-arrow">→</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-card" data-type="perso" onclick="openProject('denoising')">
+            <div class="project-card-inner">
+              <div class="project-tag">Image Processing</div>
+              <h4>Image Denoising</h4>
+              <p>Autoencoder architecture for image denoising and reconstruction.</p>
+              <div class="project-footer">
+                <div class="tech-pills">
+                  <span>Keras</span><span>CNN</span><span>Autoencoder</span>
+                </div>
+                <span class="project-arrow">→</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-card" data-type="perso" onclick="openProject('series_forecasting')">
+            <div class="project-card-inner">
+              <div class="project-tag">Time Series · RNN</div>
+              <h4>Time-Series Forecasting</h4>
+              <p>LSTM model for many-to-one prediction on a simulated sine wave.</p>
+              <div class="project-footer">
+                <div class="tech-pills">
+                  <span>TensorFlow</span><span>LSTM</span><span>Pandas</span>
+                </div>
+                <span class="project-arrow">→</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-card" data-type="perso" onclick="openProject('gru_classif')">
+            <div class="project-card-inner">
+              <div class="project-tag">NLP · Classification</div>
+              <h4>GRU Text Classifier</h4>
+              <p>Reuters newswire topic classification across 46 categories using GRU.</p>
+              <div class="project-footer">
+                <div class="tech-pills">
+                  <span>Keras</span><span>GRU</span><span>NLP</span>
+                </div>
+                <span class="project-arrow">→</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-card" data-type="acad" onclick="openProject('cifar10')">
+            <div class="project-card-inner">
+              <div class="project-tag">Computer Vision · CNN</div>
+              <h4>CIFAR-10 Classification</h4>
+              <p>CNN trained from scratch on CIFAR-10 with augmentation and TensorBoard — 70.02% accuracy.</p>
+              <div class="project-footer">
+                <div class="tech-pills">
+                  <span>PyTorch</span><span>CNN</span><span>TensorBoard</span>
+                </div>
+                <span class="project-arrow">→</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-card" data-type="acad" onclick="openProject('opengl')">
+            <div class="project-card-inner">
+              <div class="project-tag">3D Graphics · C++</div>
+              <h4>OpenGL Renderer</h4>
+              <p>Rendering pipeline for 3D models with OpenGL, Blender, and Assimp.</p>
+              <div class="project-footer">
+                <div class="tech-pills">
+                  <span>OpenGL</span><span>C++</span><span>Blender</span>
+                </div>
+                <span class="project-arrow">→</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-card" data-type="acad" onclick="openProject('indus')">
+            <div class="project-card-inner">
+              <div class="project-tag">3D Printing · Engineering</div>
+              <h4>3D Reverse Engineering</h4>
+              <p>3D shape reconstruction from GCode with geometric analysis and comparison.</p>
+              <div class="project-footer">
+                <div class="tech-pills">
+                  <span>C++</span><span>Cura</span><span>OpenGL</span>
+                </div>
+                <span class="project-arrow">→</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experiences" class="section">
+      <div class="section-inner">
+        <div class="section-header">
+          <span class="section-number">03</span>
+          <h2 class="section-title">Experience</h2>
+        </div>
+
+        <div class="timeline">
+
+          <div class="timeline-item">
+            <div class="tl-left">
+              <span class="tl-date">Mar — Sep 2025</span>
+            </div>
+            <div class="tl-dot"></div>
+            <div class="tl-right">
+              <div class="tl-card">
+                <div class="tl-company">Dynamixyz / Take Two Interactive</div>
+                <div class="tl-role">Neural Video Compression for HMC</div>
+                <ul>
+                  <li>Studied state-of-the-art neural video compression techniques.</li>
+                  <li>Implemented CNNs and optimized video processing pipelines.</li>
+                  <li>Achieved <strong>40% compression rate</strong> with PSNR of 33 dB.</li>
+                </ul>
+                <div class="tl-tags"><span>PyTorch</span><span>Video Codecs</span><span>CNN</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="tl-left">
+              <span class="tl-date">Oct 2024 — Mar 2025</span>
+            </div>
+            <div class="tl-dot"></div>
+            <div class="tl-right">
+              <div class="tl-card">
+                <div class="tl-company">IRISA &amp; Université de Rennes</div>
+                <div class="tl-role">3D Reconstruction from G-Code</div>
+                <ul>
+                  <li>Developed a geometric reconstruction pipeline from structured data.</li>
+                  <li>3D shape modeling with spatial constraints and optimization.</li>
+                  <li>Experimental validation on complex and noisy data.</li>
+                </ul>
+                <div class="tl-tags"><span>C++</span><span>OpenGL</span><span>Geometry</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="tl-left">
+              <span class="tl-date">Jun — Oct 2024</span>
+            </div>
+            <div class="tl-dot"></div>
+            <div class="tl-right">
+              <div class="tl-card">
+                <div class="tl-company">InterDigital R&amp;D</div>
+                <div class="tl-role">Real-Time C++ Video Player</div>
+                <ul>
+                  <li>Integrated DeckLink SDK with professional video capture systems.</li>
+                  <li>Converted YUV v210 → UYVY for high-performance real-time streaming.</li>
+                  <li>Achieved <strong>3–10 ms per frame</strong> with 100% frames captured.</li>
+                </ul>
+                <div class="tl-tags"><span>C++</span><span>DeckLink SDK</span><span>Video</span></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="section section-dark">
+      <div class="section-inner">
+        <div class="section-header">
+          <span class="section-number">04</span>
+          <h2 class="section-title">Skills</h2>
+        </div>
+
+        <div class="skills-grid">
+
+          <div class="skill-block">
+            <div class="skill-icon"><i class="bi bi-braces"></i></div>
+            <h5>Languages</h5>
+            <div class="skill-bars">
+              <div class="skill-bar-row"><span>Python</span><div class="bar"><div class="bar-fill" style="width:95%"></div></div></div>
+              <div class="skill-bar-row"><span>C++</span><div class="bar"><div class="bar-fill" style="width:80%"></div></div></div>
+              <div class="skill-bar-row"><span>CUDA</span><div class="bar"><div class="bar-fill" style="width:65%"></div></div></div>
+            </div>
+          </div>
+
+          <div class="skill-block">
+            <div class="skill-icon"><i class="bi bi-robot"></i></div>
+            <h5>Deep Learning</h5>
+            <div class="skill-pills">
+              <span>PyTorch</span><span>TensorFlow / Keras</span><span>scikit-learn</span>
+              <span>CNN</span><span>RNN / LSTM / GRU</span><span>Transformers</span>
+              <span>DINOv2</span><span>ResNet</span><span>Autoencoders</span>
+            </div>
+          </div>
+
+          <div class="skill-block">
+            <div class="skill-icon"><i class="bi bi-camera-reels"></i></div>
+            <h5>Vision &amp; Video</h5>
+            <div class="skill-pills">
+              <span>OpenCV</span><span>JPEG</span><span>H.264</span><span>HEVC</span>
+              <span>OpenGL</span><span>Blender</span><span>Albumentations</span>
+            </div>
+          </div>
+
+          <div class="skill-block">
+            <div class="skill-icon"><i class="bi bi-tools"></i></div>
+            <h5>Tools &amp; Infra</h5>
+            <div class="skill-pills">
+              <span>Git</span><span>Docker</span><span>TensorBoard</span>
+              <span>Kaggle</span><span>Vertex AI</span><span>NumPy / Pandas</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- CERTIFICATIONS -->
+    <section id="certifications" class="section">
+      <div class="section-inner">
+        <div class="section-header">
+          <span class="section-number">05</span>
+          <h2 class="section-title">Certifications</h2>
+        </div>
+
+        <div class="cert-list">
+
+          <div class="cert-card" onclick="openCert('certifications/Certif.pdf', 'IBM — Deep Learning & Reinforcement Learning')">
+            <div class="cert-logo cert-ibm">IBM</div>
+            <div class="cert-info">
+              <span class="cert-title">Deep Learning &amp; Reinforcement Learning</span>
+              <span class="cert-issuer">IBM Professional Certificate</span>
+            </div>
+            <span class="cert-arrow">↗</span>
+          </div>
+
+          <div class="cert-card" onclick="openCert('certifications/Coursera VXYEWM1LXBZG.pdf', 'Google Cloud — MLOps Vertex AI')">
+            <div class="cert-logo cert-google">GCP</div>
+            <div class="cert-info">
+              <span class="cert-title">MLOps — Vertex AI</span>
+              <span class="cert-issuer">Google Cloud</span>
+            </div>
+            <span class="cert-arrow">↗</span>
+          </div>
+
+          <div class="cert-card" onclick="openCert('certifications/Certification.pdf', 'CodinGame — C++ Programming')">
+            <div class="cert-logo cert-cg">CG</div>
+            <div class="cert-info">
+              <span class="cert-title">C++ Programming</span>
+              <span class="cert-issuer">CodinGame</span>
+            </div>
+            <span class="cert-arrow">↗</span>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section section-dark">
+      <div class="section-inner">
+        <div class="section-header">
+          <span class="section-number">06</span>
+          <h2 class="section-title">Get in Touch</h2>
+        </div>
+
+        <div class="contact-grid">
+          <div class="contact-info">
+            <p class="contact-lead">I'm actively looking for a PhD position or full-time role in computer vision and ML. Let's talk.</p>
+            <div class="contact-links">
+              <a href="mailto:louis.niango14@gmail.com"><i class="bi bi-envelope-fill"></i> louis.niango14@gmail.com</a>
+              <a href="mailto:cednian@gmail.com"><i class="bi bi-envelope"></i> cednian@gmail.com</a>
+              <a href="tel:+33623753013"><i class="bi bi-telephone-fill"></i> +33 6 23 75 30 13</a>
+              <a href="https://github.com/lniango" target="_blank"><i class="bi bi-github"></i> github.com/lniango</a>
+            </div>
+          </div>
+
+          <form id="contact-form" action="https://formspree.io/f/xvgbnkzn" method="POST">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" name="name" id="name" required placeholder="Your name">
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" required placeholder="your@email.com">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea name="message" id="message" rows="5" required placeholder="Tell me about the opportunity..."></textarea>
+            </div>
+            <button type="submit" class="btn-primary form-submit">
+              <i class="bi bi-send-fill"></i> Send Message
+            </button>
+            <p id="form-status"></p>
+          </form>
         </div>
       </div>
     </section>
@@ -251,18 +486,36 @@
   </main>
 
   <footer>
-    <p>© 2025 Louis Niango — Portfolio</p>
+    <div class="footer-inner">
+      <span class="footer-logo">LN<span>.</span></span>
+      <p>© 2025 Louis Niango — Built with care.</p>
+      <div class="footer-links">
+        <a href="https://github.com/lniango" target="_blank"><i class="bi bi-github"></i></a>
+        <a href="https://www.linkedin.com/in/louis-niango-a2025b20a" target="_blank"><i class="bi bi-linkedin"></i></a>
+      </div>
+    </div>
   </footer>
 
+  <!-- BACK TO TOP -->
+  <button id="topBtn" aria-label="Back to top">↑</button>
+
+  <!-- MODAL -->
   <div id="project-modal" class="modal">
     <div class="modal-content">
-      <span class="close" onclick="closeModal()">&times;</span>
-      <h3 id="modal-title"></h3>
-      <div id="modal-img-container" class="d-flex flex-wrap gap-2"></div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div id="modal-img-container"></div>
       <video id="modal-video" class="modal-video" autoplay muted controls></video>
-      <p id="modal-desc"></p>
-      <p><strong>Technologies:</strong> <span id="modal-tech"></span></p>
-      <p id="modal-link"></p>
+      <div class="modal-body">
+        <div id="modal-tags" class="modal-tags"></div>
+        <h3 id="modal-title"></h3>
+        <p id="modal-desc"></p>
+        <div id="modal-metrics"></div>
+        <div class="modal-tech-row">
+          <span class="modal-tech-label">Stack —</span>
+          <span id="modal-tech"></span>
+        </div>
+        <p id="modal-link"></p>
+      </div>
     </div>
   </div>
 

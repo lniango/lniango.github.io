@@ -1,80 +1,132 @@
-// === SCRIPT.JS - VERSION AMÉLIORÉE ===
+// === SCRIPT.JS — Louis Niango Portfolio ===
 
-// === DARK MODE ===
+// ─── CUSTOM CURSOR ───
+const cursor = document.getElementById('cursor');
+const trail = document.getElementById('cursorTrail');
+
+if (cursor && trail) {
+  let mx = -100, my = -100, tx = -100, ty = -100;
+  let started = false;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX;
+    my = e.clientY;
+    if (!started) {
+      started = true;
+      cursor.classList.add('active');
+      trail.classList.add('active');
+    }
+  });
+
+  function animateCursors() {
+    cursor.style.left = mx + 'px';
+    cursor.style.top  = my + 'px';
+    tx += (mx - tx) * 0.12;
+    ty += (my - ty) * 0.12;
+    trail.style.left = tx + 'px';
+    trail.style.top  = ty + 'px';
+    requestAnimationFrame(animateCursors);
+  }
+  animateCursors();
+
+  document.querySelectorAll('a, button, .project-card, .cert-card').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.transform = 'translate(-50%,-50%) scale(2.5)';
+      trail.style.transform  = 'translate(-50%,-50%) scale(1.5)';
+      trail.style.opacity    = '.2';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.transform = 'translate(-50%,-50%) scale(1)';
+      trail.style.transform  = 'translate(-50%,-50%) scale(1)';
+      trail.style.opacity    = '.5';
+    });
+  });
+}
+
+// ─── DARK MODE ───
 function initDarkMode() {
-  const savedTheme = localStorage.getItem('theme') || 'light';
-  document.documentElement.setAttribute('data-theme', savedTheme);
-  
-  const toggleBtn = document.createElement('button');
-  toggleBtn.className = 'theme-toggle';
-  toggleBtn.innerHTML = savedTheme === 'dark' ? '☀️' : '🌙';
-  toggleBtn.setAttribute('aria-label', 'Toggle dark mode');
-  
-  const navContainer = document.querySelector('nav .container');
-  navContainer.appendChild(toggleBtn);
-  
-  toggleBtn.addEventListener('click', () => {
-    const currentTheme = document.documentElement.getAttribute('data-theme');
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    
-    document.documentElement.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
-    toggleBtn.innerHTML = newTheme === 'dark' ? '☀️' : '🌙';
-  });
+  const saved = localStorage.getItem('theme') || 'light';
+  document.documentElement.setAttribute('data-theme', saved);
+  updateToggleIcon(saved);
 }
 
-// === FILTER PROJECTS ===
-function filterProjects(type) {
-  const projects = document.querySelectorAll(".project");
-  const buttons = document.querySelectorAll(".filters button");
-  
-  buttons.forEach(btn => btn.classList.remove('active'));
-  event.target.classList.add('active');
-  
-  projects.forEach(project => {
-    if (type === "all" || project.dataset.type === type) {
-      project.style.display = "block";
-      project.style.animation = "fadeInUp 0.5s ease forwards";
-    } else {
-      project.style.display = "none";
-    }
-  });
+function updateToggleIcon(theme) {
+  const btn = document.getElementById('themeToggle');
+  if (btn) btn.querySelector('.toggle-icon').textContent = theme === 'dark' ? '○' : '◐';
 }
 
-// === SMOOTH SCROLL ===
-const links = document.querySelectorAll("nav a");
-links.forEach(link => {
-  link.addEventListener("click", function(e) {
+document.getElementById('themeToggle')?.addEventListener('click', () => {
+  const current = document.documentElement.getAttribute('data-theme');
+  const next = current === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+  updateToggleIcon(next);
+});
+
+// ─── NAVBAR SCROLL ───
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar?.classList.toggle('scrolled', window.scrollY > 40);
+
+  // Back to top button
+  const btn = document.getElementById('topBtn');
+  if (btn) btn.style.display = window.scrollY > 500 ? 'flex' : 'none';
+  if (btn) btn.style.alignItems = 'center';
+  if (btn) btn.style.justifyContent = 'center';
+});
+
+// ─── SMOOTH SCROLL + ACTIVE LINK ───
+document.querySelectorAll('a[href^="#"]').forEach(link => {
+  link.addEventListener('click', e => {
+    const target = document.querySelector(link.getAttribute('href'));
+    if (!target) return;
     e.preventDefault();
-    const target = document.querySelector(this.getAttribute("href"));
-    if (target) {
-      const navHeight = document.querySelector('nav').offsetHeight;
-      const targetPosition = target.offsetTop - navHeight - 20;
-      
-      window.scrollTo({
-        top: targetPosition,
-        behavior: "smooth"
-      });
-      
-      // Update active nav link
-      links.forEach(l => l.classList.remove('active'));
-      this.classList.add('active');
-    }
+    const offset = document.querySelector('#navbar')?.offsetHeight || 80;
+    window.scrollTo({ top: target.offsetTop - offset - 20, behavior: 'smooth' });
   });
 });
 
-// === PROJECT DATA ===
+window.addEventListener('scroll', () => {
+  const sections = document.querySelectorAll('section[id]');
+  const links = document.querySelectorAll('.nav-links a');
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 120) current = s.id;
+  });
+  links.forEach(l => {
+    l.classList.toggle('active', l.getAttribute('href') === `#${current}`);
+  });
+});
+
+// ─── BACK TO TOP ───
+document.getElementById('topBtn')?.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+// ─── FILTER PROJECTS ───
+function filterProjects(type, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn?.classList.add('active');
+
+  document.querySelectorAll('.project-card').forEach(card => {
+    const show = type === 'all' || card.dataset.type === type;
+    card.style.display = show ? 'block' : 'none';
+    if (show) card.style.animation = 'modal-in .4s ease forwards';
+  });
+}
+
+// ─── PROJECT DATA ───
 const projectData = {
   cifar10: {
     title: "Classification CIFAR-10",
     desc: "CNN (Convolutional Neural Network) network for image classification implemented and trained (CPU) from scratch on the CIFAR-10 dataset, with augmentation techniques and TensorBoard monitoring.",
-    metrics: { accuracy: "70.02%", dataset: "60,000 images", epochs: "50" },
+    metrics: { accuracy: "70.02%", dataset: "60 000 images", epochs: "50" },
     tech: "PyTorch, CNN, DataLoader, TensorBoard",
     link: "https://gitlab.com/cednian/classification_cifar10.git",
     tags: ["Deep Learning", "Computer Vision", "PyTorch"]
   },
   gravite: {
-    title: "Gravitational potential network",
+    title: "Gravitational Potential Network",
     desc: "Development of a MLP (Multi-Layer Perceptron) to approximate the multi-body gravitational potential in N dimensions.",
     tech: "PyTorch, Python, Deep Learning, PCA, scikit-learn",
     imgs: ["images/gravit.png"],
@@ -82,7 +134,7 @@ const projectData = {
     tags: ["Physics", "Neural Networks", "PyTorch"]
   },
   series_forecasting: {
-    title: "Time-series forecasting",
+    title: "Time-Series Forecasting",
     desc: "Implementation of a simple LSTM model to solve a many-to-one time-series prediction problem on a simulated sine wave.",
     tech: "TensorFlow/Keras, Pandas, Python, scikit-learn, RNN",
     imgs: ["images/pred_temp.png"],
@@ -95,7 +147,7 @@ const projectData = {
     tags: ["NLP", "GRU", "Text Classification"]
   },
   denoising: {
-    title: "Image denoising",
+    title: "Image Denoising",
     desc: "Implementation and training of an autoencoder for denoising images.",
     tech: "TensorFlow/Keras, Python, CNN, MLP",
     imgs: ["images/output.png", "images/output1.png"],
@@ -103,8 +155,8 @@ const projectData = {
     tags: ["Computer Vision", "Autoencoders", "Image Processing"]
   },
   med: {
-    title: "Pneumonia computer-assisted diagnosis",
-    desc: "Medical image classification model to assist with computer-aided diagnosis. Training on popular Kaggle dataset: Chest X-Ray Images (Pneumonia).",
+    title: "Pneumonia CAD",
+    desc: "Medical image classification model to assist with computer-aided diagnosis. Training on the Kaggle dataset: Chest X-Ray Images (Pneumonia).",
     metrics: { accuracy: "84.93%", model: "ResNet18" },
     tech: "PyTorch, Python, CNN, ResNet18",
     imgs: ["images/normal.png", "images/pneumonia3.png"],
@@ -112,7 +164,7 @@ const projectData = {
     tags: ["Medical AI", "Computer Vision", "Classification"]
   },
   opengl: {
-    title: "Rendering with OpenGL",
+    title: "OpenGL Renderer",
     desc: "Rendering of triangles and more complex 3D models with OpenGL and Blender.",
     tech: "OpenGL, C++, Cura, Blender, Assimp",
     imgs: ["images/openGL_renderer.png"],
@@ -120,218 +172,174 @@ const projectData = {
     tags: ["3D Graphics", "OpenGL", "C++"]
   },
   indus: {
-    title: "Reverse engineering for 3D printing",
+    title: "3D Reverse Engineering",
     desc: "3D reconstruction of models from Gcode, design and implementation of methods to compare reconstructed and original models.",
     tech: "OpenGL, C++, Cura, Blender, Assimp",
     tags: ["3D Printing", "Reverse Engineering", "C++"]
   },
-  cisro:{
-    title: "Multimodal Biomass Estimation from Aerial Images",
+  cisro: {
+    title: "Image2Biomass — CSIRO",
     desc: "Design and implementation of a multimodal deep learning model combining aerial imagery and tabular metadata to estimate biomass through supervised regression.",
     tech: "Python, PyTorch, DINOv2, EfficientNet, Albumentations, NumPy, Pandas, Kaggle",
     link: "https://www.kaggle.com/code/cedricniango/dino-predictor",
-    tags: ["Deep Learning", "Computer Vision", "Multimodal Learning", "Regression"]
+    tags: ["Deep Learning", "Computer Vision", "Multimodal", "Regression"]
   }
 };
 
-// === OPEN PROJECT MODAL ===
-function openCert(pdfPath, title) {
-  const modal = document.getElementById("project-modal");
-  document.getElementById("modal-title").innerText = title;
-  document.getElementById("modal-desc").innerText = "";
-  document.getElementById("modal-tech").innerText = "";
-  document.getElementById("modal-link").innerHTML = "";
-  document.getElementById("modal-img-container").innerHTML = `
-    <iframe src="${pdfPath}" width="100%" height="500px"
-      style="border-radius: 0.75rem; border: none; margin-top: 1rem;">
-    </iframe>
-  `;
-  const vidEl = document.getElementById("modal-video");
-  vidEl.style.display = "none";
-  vidEl.src = "";
-  modal.style.display = "flex";
-  document.body.style.overflow = "hidden";
-}
-
+// ─── OPEN PROJECT MODAL ───
 function openProject(key) {
-  const modal = document.getElementById("project-modal");
-  const project = projectData[key];
-  
-  document.getElementById("modal-title").innerText = project.title;
-  document.getElementById("modal-desc").innerText = project.desc;
-  document.getElementById("modal-tech").innerText = project.tech;
-  
-  // Display metrics if available
-  const modalDesc = document.getElementById("modal-desc");
-  if (project.metrics) {
-    let metricsHTML = '<div class="metrics-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 1rem; margin: 1rem 0;">';
-    for (const [key, value] of Object.entries(project.metrics)) {
-      metricsHTML += `
-        <div style="text-align: center; padding: 1rem; background: var(--bg); border-radius: 0.5rem;">
-          <div style="font-size: 1.5rem; font-weight: bold; color: var(--primary);">${value}</div>
-          <div style="font-size: 0.9rem; color: var(--muted); text-transform: capitalize;">${key}</div>
-        </div>
-      `;
-    }
-    metricsHTML += '</div>';
-    modalDesc.innerHTML = project.desc + metricsHTML;
+  const p = projectData[key];
+  if (!p) return;
+  const modal = document.getElementById('project-modal');
+
+  // Tags
+  const tagsEl = document.getElementById('modal-tags');
+  tagsEl.innerHTML = (p.tags || []).map(t => `<span>${t}</span>`).join('');
+
+  document.getElementById('modal-title').textContent = p.title;
+
+  // Description
+  const descEl = document.getElementById('modal-desc');
+  descEl.textContent = p.desc;
+
+  // Metrics
+  const metricsEl = document.getElementById('modal-metrics');
+  if (p.metrics) {
+    metricsEl.innerHTML = `<div class="metrics-grid">` +
+      Object.entries(p.metrics).map(([k, v]) =>
+        `<div class="metric-item"><div class="metric-val">${v}</div><div class="metric-key">${k}</div></div>`
+      ).join('') + `</div>`;
+  } else {
+    metricsEl.innerHTML = '';
   }
-  
-  // Display images
-  const imgContainer = document.getElementById("modal-img-container");
-  imgContainer.innerHTML = "";
-  if (project.imgs && project.imgs.length > 0) {
-    project.imgs.forEach((src) => {
-      const img = document.createElement("img");
+
+  document.getElementById('modal-tech').textContent = p.tech || '';
+
+  // Images
+  const imgContainer = document.getElementById('modal-img-container');
+  imgContainer.innerHTML = '';
+  if (p.imgs?.length) {
+    p.imgs.forEach(src => {
+      const img = document.createElement('img');
       img.src = src;
-      img.className = "modal-img mb-2";
-      img.loading = "lazy"; // Lazy loading
-      img.style.maxWidth = project.imgs.length === 1 ? "100%" : "48%";
-      img.style.borderRadius = "0.75rem";
+      img.loading = 'lazy';
       imgContainer.appendChild(img);
     });
   }
-  
-  // Display link
-  const linkEl = document.getElementById("modal-link");
-  if (project.link) {
-    linkEl.innerHTML = `
-      <a href="${project.link}" target="_blank" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 1rem;">
-        <i class="bi bi-box-arrow-up-right"></i> View repository
-      </a>
-    `;
+
+  // Video
+  const vid = document.getElementById('modal-video');
+  if (p.video) {
+    vid.src = p.video;
+    vid.style.display = 'block';
+    vid.play();
   } else {
-    linkEl.innerHTML = "";
+    vid.style.display = 'none';
+    vid.src = '';
   }
-  
-  // Display video
-  const vidEl = document.getElementById("modal-video");
-  if (project.video) {
-    vidEl.src = project.video;
-    vidEl.style.display = "block";
-    vidEl.muted = true;
-    vidEl.play();
+
+  // Link
+  const linkEl = document.getElementById('modal-link');
+  if (p.link) {
+    linkEl.innerHTML = `<a href="${p.link}" target="_blank"><i class="bi bi-box-arrow-up-right"></i> View Repository</a>`;
   } else {
-    vidEl.style.display = "none";
-    vidEl.pause();
-    vidEl.src = "";
+    linkEl.innerHTML = '';
   }
-  
-  modal.style.display = "flex";
-  document.body.style.overflow = "hidden"; // Prevent background scroll
+
+  modal.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
 }
 
-// === CLOSE MODAL ===
+// ─── OPEN CERT MODAL ───
+function openCert(pdfPath, title) {
+  const modal = document.getElementById('project-modal');
+  document.getElementById('modal-tags').innerHTML = '';
+  document.getElementById('modal-title').textContent = title;
+  document.getElementById('modal-desc').textContent = '';
+  document.getElementById('modal-metrics').innerHTML = '';
+  document.getElementById('modal-tech').textContent = '';
+  document.getElementById('modal-link').innerHTML = '';
+  document.getElementById('modal-img-container').innerHTML =
+    `<iframe src="${pdfPath}" height="500px"></iframe>`;
+  const vid = document.getElementById('modal-video');
+  vid.style.display = 'none'; vid.src = '';
+  modal.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+
+// ─── CLOSE MODAL ───
 function closeModal() {
-  const modal = document.getElementById("project-modal");
-  modal.style.display = "none";
-  document.body.style.overflow = "auto";
+  document.getElementById('project-modal').style.display = 'none';
+  document.body.style.overflow = '';
+  const vid = document.getElementById('modal-video');
+  vid.pause(); vid.src = '';
 }
 
-// Close modal on outside click
-window.onclick = function(event) {
-  const modal = document.getElementById("project-modal");
-  if (event.target === modal) {
-    closeModal();
-  }
-};
-
-// Close modal with Escape key
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') {
-    closeModal();
-  }
+window.addEventListener('click', e => {
+  if (e.target.id === 'project-modal') closeModal();
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeModal();
 });
 
-// === CONTACT FORM ===
-const form = document.getElementById("contact-form");
-const status = document.getElementById("form-status");
-
-if (form) {
-  form.addEventListener("submit", function(e) {
-    e.preventDefault();
-    const data = new FormData(form);
-    const submitBtn = form.querySelector('button[type="submit"]');
-    
-    submitBtn.disabled = true;
-    submitBtn.textContent = "Sending...";
-    
-    fetch(form.action, {
-      method: form.method,
-      body: data,
-      headers: { 'Accept': 'application/json' }
-    })
-    .then(response => {
-      if (response.ok) {
-        status.innerHTML = '<div style="color: #10b981; padding: 1rem; background: #d1fae5; border-radius: 0.5rem; margin-top: 1rem;">✓ Message sent successfully!</div>';
-        form.reset();
-      } else {
-        throw new Error('Form submission failed');
-      }
-    })
-    .catch(err => {
-      status.innerHTML = '<div style="color: #ef4444; padding: 1rem; background: #fee2e2; border-radius: 0.5rem; margin-top: 1rem;">✗ An error occurred. Please try again.</div>';
-    })
-    .finally(() => {
-      submitBtn.disabled = false;
-      submitBtn.textContent = "Send";
-    });
-  });
-}
-
-// === SCROLL TO TOP BUTTON ===
-const topBtn = document.getElementById("topBtn");
-window.onscroll = () => {
-  topBtn.style.display = window.scrollY > 400 ? "block" : "none";
-};
-
-topBtn.onclick = () => {
-  window.scrollTo({ top: 0, behavior: "smooth" });
-};
-
-// === INTERSECTION OBSERVER FOR ANIMATIONS ===
-const observerOptions = {
-  threshold: 0.1,
-  rootMargin: "0px 0px -100px 0px"
-};
-
-const observer = new IntersectionObserver((entries) => {
+// ─── INTERSECTION OBSERVER (sections + skill bars) ───
+const io = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
-      entry.target.style.animation = "fadeInUp 0.6s ease forwards";
-      observer.unobserve(entry.target);
+      entry.target.classList.add('visible');
+      io.unobserve(entry.target);
     }
   });
-}, observerOptions);
+}, { threshold: 0.1 });
 
-document.querySelectorAll("section").forEach(sec => observer.observe(sec));
-
-// === ACTIVE NAV LINK ON SCROLL ===
-window.addEventListener('scroll', () => {
-  const sections = document.querySelectorAll('section[id]');
-  const navLinks = document.querySelectorAll('nav a');
-  
-  let current = '';
-  sections.forEach(section => {
-    const sectionTop = section.offsetTop - 100;
-    if (window.scrollY >= sectionTop) {
-      current = section.getAttribute('id');
-    }
-  });
-  
-  navLinks.forEach(link => {
-    link.classList.remove('active');
-    if (link.getAttribute('href') === `#${current}`) {
-      link.classList.add('active');
-    }
-  });
+document.querySelectorAll('.skill-block, .tl-card, .project-card, .stat-card, .cert-card').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(20px)';
+  el.style.transition = 'opacity .6s ease, transform .6s ease';
+  io.observe(el);
 });
 
-// === INITIALIZE ===
+// Add visible class handler
+const styleTag = document.createElement('style');
+styleTag.textContent = `.visible { opacity: 1 !important; transform: none !important; }`;
+document.head.appendChild(styleTag);
+
+// ─── CONTACT FORM ───
+const form = document.getElementById('contact-form');
+if (form) {
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    const btn = form.querySelector('button[type="submit"]');
+    const status = document.getElementById('form-status');
+    btn.disabled = true;
+    btn.innerHTML = '<i class="bi bi-hourglass-split"></i> Sending…';
+
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { Accept: 'application/json' }
+      });
+      if (res.ok) {
+        status.style.color = '#22c55e';
+        status.textContent = '✓ Message sent! I'll get back to you soon.';
+        form.reset();
+      } else {
+        throw new Error();
+      }
+    } catch {
+      status.style.color = '#ef4444';
+      status.textContent = '✗ Something went wrong. Please email me directly.';
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = '<i class="bi bi-send-fill"></i> Send Message';
+    }
+  });
+}
+
+// ─── INIT ───
 document.addEventListener('DOMContentLoaded', () => {
   initDarkMode();
-  
-  // Set first filter button as active
-  const firstFilterBtn = document.querySelector('.filters button');
-  if (firstFilterBtn) firstFilterBtn.classList.add('active');
+  const firstFilter = document.querySelector('.filter-btn');
+  if (firstFilter) firstFilter.classList.add('active');
 });
