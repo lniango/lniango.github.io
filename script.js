@@ -345,7 +345,7 @@ if (form) {
       });
       if (res.ok) {
         status.style.color = '#22c55e';
-        status.textContent = '✓ Message sent! I'll get back to you soon.';
+        status.textContent = "✓ Message sent! I'll get back to you soon.";
         form.reset();
       } else {
         throw new Error();
