@@ -251,7 +251,7 @@ function openProject(key) {
 }
 
 // ─── OPEN CERT MODAL ───
-function openCert(pdfPath, title) {
+/*function openCert(pdfPath, title) {
   const modal = document.getElementById('project-modal');
   document.getElementById('modal-tags').innerHTML = '';
   document.getElementById('modal-title').textContent = title;
@@ -261,6 +261,29 @@ function openCert(pdfPath, title) {
   document.getElementById('modal-link').innerHTML = '';
   document.getElementById('modal-img-container').innerHTML =
     `<iframe src="${pdfPath}" height="500px"></iframe>`;
+  const vid = document.getElementById('modal-video');
+  vid.style.display = 'none'; vid.src = '';
+  modal.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}*/
+function openCert(path, title) {
+  const modal = document.getElementById('project-modal');
+  document.getElementById('modal-tags').innerHTML = '';
+  document.getElementById('modal-title').textContent = title;
+  document.getElementById('modal-desc').textContent = '';
+  document.getElementById('modal-metrics').innerHTML = '';
+  document.getElementById('modal-tech').textContent = '';
+  document.getElementById('modal-link').innerHTML = '';
+
+  const imgContainer = document.getElementById('modal-img-container');
+  
+  // Détecte si c'est une image ou un PDF
+  if (path.match(/\.(png|jpg|jpeg|webp)$/i)) {
+    imgContainer.innerHTML = `<img src="${path}" style="width:100%; border-radius: 1rem 1rem 0 0; object-fit: contain; max-height: 500px;">`;
+  } else {
+    imgContainer.innerHTML = `<iframe src="${path}" height="500px"></iframe>`;
+  }
+
   const vid = document.getElementById('modal-video');
   vid.style.display = 'none'; vid.src = '';
   modal.style.display = 'flex';
