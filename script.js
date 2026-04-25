@@ -1,5 +1,5 @@
 // === SCRIPT.JS — Louis Niango Portfolio ===
-//console.log("SCRIPT LOADED");
+
 // ─── CUSTOM CURSOR ───
 const cursor = document.getElementById('cursor');
 const trail = document.getElementById('cursorTrail');
@@ -9,8 +9,7 @@ if (cursor && trail) {
   let started = false;
 
   document.addEventListener('mousemove', e => {
-    mx = e.clientX;
-    my = e.clientY;
+    mx = e.clientX; my = e.clientY;
     if (!started) {
       started = true;
       cursor.classList.add('active');
@@ -29,7 +28,7 @@ if (cursor && trail) {
   }
   animateCursors();
 
-  document.querySelectorAll('a, button, .project-card, .cert-card').forEach(el => {
+  document.querySelectorAll('a, button, .project-card, .cert-card, .research-card, .stack-item').forEach(el => {
     el.addEventListener('mouseenter', () => {
       cursor.style.transform = 'translate(-50%,-50%) scale(2.5)';
       trail.style.transform  = 'translate(-50%,-50%) scale(1.5)';
@@ -49,12 +48,10 @@ function initDarkMode() {
   document.documentElement.setAttribute('data-theme', saved);
   updateToggleIcon(saved);
 }
-
 function updateToggleIcon(theme) {
   const btn = document.getElementById('themeToggle');
   if (btn) btn.querySelector('.toggle-icon').textContent = theme === 'dark' ? '○' : '◐';
 }
-
 document.getElementById('themeToggle')?.addEventListener('click', () => {
   const current = document.documentElement.getAttribute('data-theme');
   const next = current === 'dark' ? 'light' : 'dark';
@@ -67,15 +64,11 @@ document.getElementById('themeToggle')?.addEventListener('click', () => {
 const navbar = document.getElementById('navbar');
 window.addEventListener('scroll', () => {
   navbar?.classList.toggle('scrolled', window.scrollY > 40);
-
-  // Back to top button
   const btn = document.getElementById('topBtn');
-  if (btn) btn.style.display = window.scrollY > 500 ? 'flex' : 'none';
-  if (btn) btn.style.alignItems = 'center';
-  if (btn) btn.style.justifyContent = 'center';
+  if (btn) { btn.style.display = window.scrollY > 500 ? 'flex' : 'none'; }
 });
 
-// ─── SMOOTH SCROLL + ACTIVE LINK ───
+// ─── SMOOTH SCROLL ───
 document.querySelectorAll('a[href^="#"]').forEach(link => {
   link.addEventListener('click', e => {
     const target = document.querySelector(link.getAttribute('href'));
@@ -86,16 +79,13 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
   });
 });
 
+// ─── ACTIVE NAV LINK ───
 window.addEventListener('scroll', () => {
   const sections = document.querySelectorAll('section[id]');
   const links = document.querySelectorAll('.nav-links a');
   let current = '';
-  sections.forEach(s => {
-    if (window.scrollY >= s.offsetTop - 120) current = s.id;
-  });
-  links.forEach(l => {
-    l.classList.toggle('active', l.getAttribute('href') === `#${current}`);
-  });
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) current = s.id; });
+  links.forEach(l => { l.classList.toggle('active', l.getAttribute('href') === `#${current}`); });
 });
 
 // ─── BACK TO TOP ───
@@ -107,11 +97,9 @@ document.getElementById('topBtn')?.addEventListener('click', () => {
 function filterProjects(type, btn) {
   document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
   btn?.classList.add('active');
-
   document.querySelectorAll('.project-card').forEach(card => {
     const show = type === 'all' || card.dataset.type === type;
     card.style.display = show ? 'block' : 'none';
-    if (show) card.style.animation = 'modal-in .4s ease forwards';
   });
 }
 
@@ -148,56 +136,54 @@ const projectData = {
   },
   denoising: {
     title: "Image Denoising",
-    desc: "Implementation and training of an autoencoder for denoising images.",
-    tech: "TensorFlow/Keras, Python, CNN, MLP",
+    desc: "Implementation and training of a convolutional autoencoder for denoising images — an application of inverse problem solving with deep priors.",
+    tech: "TensorFlow/Keras, Python, CNN, Autoencoder",
     imgs: ["images/output.png", "images/output1.png"],
     link: "https://github.com/lniango/Anomaly-detection-Image-denoising.git",
-    tags: ["Computer Vision", "Autoencoders", "Image Processing"]
+    tags: ["Inverse Problems", "Autoencoders", "Image Processing"]
   },
   med: {
-    title: "Pneumonia CAD",
-    desc: "Medical image classification model to assist with computer-aided diagnosis. Training on the Kaggle dataset: Chest X-Ray Images (Pneumonia).",
+    title: "Pneumonia Computer-Aided Diagnosis",
+    desc: "Medical image classification model to assist with computer-aided diagnosis. Training on the Kaggle Chest X-Ray Images (Pneumonia) dataset.",
     metrics: { accuracy: "84.93%", model: "ResNet18" },
     tech: "PyTorch, Python, CNN, ResNet18",
     imgs: ["images/normal.png", "images/pneumonia3.png"],
     link: "https://github.com/lniango/Computer-assisted-diagnosis.git",
     tags: ["Medical AI", "Computer Vision", "Classification"]
   },
+  unet: {
+    title: "Medical Image Segmentation with U-Net",
+    desc: "Implementation of a U-Net architecture for pixel-level semantic segmentation on medical imaging datasets. Designed for precise delineation of anatomical structures and pathologies.",
+    tech: "PyTorch, Python, U-Net, CNN, Segmentation",
+    tags: ["Medical AI", "Segmentation", "U-Net", "Computer Vision"]
+  },
+  multiview: {
+    title: "Multi-view 3D Reconstruction",
+    desc: "Pipeline combining geometry-based (camera calibration, epipolar geometry) and learning-based methods to recover dense 3D structure from multiple 2D image observations.",
+    tech: "Python, PyTorch, Open3D, OpenCV, Multi-view Geometry",
+    tags: ["3D Reconstruction", "Multi-view Geometry", "Computer Vision"]
+  },
   opengl: {
     title: "OpenGL Renderer",
-    desc: "Rendering of triangles and more complex 3D models with OpenGL and Blender.",
+    desc: "Rendering of triangles and more complex 3D models with OpenGL and Blender. Includes Voronoi-based procedural geometry and Assimp for model loading.",
     tech: "OpenGL, C++, Cura, Blender, Assimp",
     imgs: ["images/openGL_renderer.png"],
     video: "images/voronoi.mp4",
     tags: ["3D Graphics", "OpenGL", "C++"]
   },
   indus: {
-    title: "3D Reverse Engineering",
-    desc: "3D reconstruction of models from Gcode, design and implementation of methods to compare reconstructed and original models.",
+    title: "3D Reverse Engineering from GCode",
+    desc: "3D reconstruction of models from GCode, design and implementation of methods to compare reconstructed and original models geometrically.",
     tech: "OpenGL, C++, Cura, Blender, Assimp",
     tags: ["3D Printing", "Reverse Engineering", "C++"]
   },
   cisro: {
     title: "Image2Biomass — CSIRO",
-    desc: "Design and implementation of a multimodal deep learning model combining aerial imagery and tabular metadata to estimate biomass through supervised regression.",
+    desc: "Design and implementation of a multimodal deep learning model combining aerial imagery and tabular metadata to estimate biomass through supervised regression. Uses DINOv2 as the vision backbone.",
     tech: "Python, PyTorch, DINOv2, EfficientNet, Albumentations, NumPy, Pandas, Kaggle",
     link: "https://www.kaggle.com/code/cedricniango/dino-predictor",
     tags: ["Deep Learning", "Computer Vision", "Multimodal", "Regression"]
-  },
-  celltrack: {
-  title: "Cell Segmentation & Tracking",
-  desc: "Comparative study of segmentation methods applied to temporal tracking of HeLa cells (DIC-C2DH-HeLa dataset, Cell Tracking Challenge). The goal is to segment cells frame-by-frame and track their evolution over time.\n\nClassical methods (thresholding, Canny, watershed) are compared against a deep learning approach (U-Net). The pipeline evaluates robustness under low-contrast microscopy conditions typical of DIC imaging.",
-  tech: "OpenCV, Scikit-image, SciPy, PyTorch, U-Net",
-  link: "https://github.com/lniango/Segmentation_tracking",
-  tags: ["Medical Imaging", "Segmentation", "Tracking", "Deep Learning"]
-},
-reconstruction3d: {
-  title: "3D Object Reconstruction",
-  desc: "Pipeline for 3D reconstruction of objects from multi-view images. The project explores classical computer vision techniques (Structure-from-Motion, multi-view geometry) and modern learning-based approaches for depth estimation and reconstruction.\n\nThe goal is to generate consistent 3D representations (point clouds / meshes) from image sequences, bridging geometric methods and deep learning approaches.",
-  tech: "OpenCV, COLMAP, Multi-view Geometry, NeRF (concepts), Python",
-  link: "https://github.com/lniango/3D_reconstruction",
-  tags: ["3D Vision", "Reconstruction", "Geometry", "Deep Learning"]
-}
+  }
 };
 
 // ─── OPEN PROJECT MODAL ───
@@ -206,102 +192,46 @@ function openProject(key) {
   if (!p) return;
   const modal = document.getElementById('project-modal');
 
-  // Tags
-  const tagsEl = document.getElementById('modal-tags');
-  tagsEl.innerHTML = (p.tags || []).map(t => `<span>${t}</span>`).join('');
-
+  document.getElementById('modal-tags').innerHTML = (p.tags || []).map(t => `<span>${t}</span>`).join('');
   document.getElementById('modal-title').textContent = p.title;
+  document.getElementById('modal-desc').textContent = p.desc;
+  document.getElementById('modal-tech').textContent = p.tech || '';
 
-  // Description
-  const descEl = document.getElementById('modal-desc');
-  descEl.textContent = p.desc;
-
-  // Metrics
   const metricsEl = document.getElementById('modal-metrics');
   if (p.metrics) {
     metricsEl.innerHTML = `<div class="metrics-grid">` +
       Object.entries(p.metrics).map(([k, v]) =>
-        `<div class="metric-item"><div class="metric-val">${v}</div><div class="metric-key">${k}</div></div>`
+        `<div class="metric-item"><span class="metric-val">${v}</span><span class="metric-key">${k}</span></div>`
       ).join('') + `</div>`;
-  } else {
-    metricsEl.innerHTML = '';
-  }
+  } else { metricsEl.innerHTML = ''; }
 
-  document.getElementById('modal-tech').textContent = p.tech || '';
-
-  // Images
   const imgContainer = document.getElementById('modal-img-container');
   imgContainer.innerHTML = '';
   if (p.imgs?.length) {
     p.imgs.forEach(src => {
       const img = document.createElement('img');
-      img.src = src;
-      img.loading = 'lazy';
+      img.src = src; img.loading = 'lazy';
       imgContainer.appendChild(img);
     });
   }
 
-  // Video
   const vid = document.getElementById('modal-video');
-  if (p.video) {
-    vid.src = p.video;
-    vid.style.display = 'block';
-    vid.play();
-  } else {
-    vid.style.display = 'none';
-    vid.src = '';
-  }
+  if (p.video) { vid.src = p.video; vid.style.display = 'block'; vid.play(); }
+  else { vid.style.display = 'none'; vid.src = ''; }
 
-  // Link
   const linkEl = document.getElementById('modal-link');
-  if (p.link) {
-    linkEl.innerHTML = `<a href="${p.link}" target="_blank"><i class="bi bi-box-arrow-up-right"></i> View Repository</a>`;
-  } else {
-    linkEl.innerHTML = '';
-  }
+  linkEl.innerHTML = p.link
+    ? `<a href="${p.link}" target="_blank"><i class="bi bi-box-arrow-up-right"></i> View Repository</a>`
+    : '';
 
   modal.style.display = 'flex';
   document.body.style.overflow = 'hidden';
 }
 
-// ─── OPEN CERT MODAL ───
-/*function openCert(pdfPath, title) {
-  const modal = document.getElementById('project-modal');
-  document.getElementById('modal-tags').innerHTML = '';
-  document.getElementById('modal-title').textContent = title;
-  document.getElementById('modal-desc').textContent = '';
-  document.getElementById('modal-metrics').innerHTML = '';
-  document.getElementById('modal-tech').textContent = '';
-  document.getElementById('modal-link').innerHTML = '';
-  document.getElementById('modal-img-container').innerHTML =
-    `<iframe src="${pdfPath}" height="500px"></iframe>`;
-  const vid = document.getElementById('modal-video');
-  vid.style.display = 'none'; vid.src = '';
-  modal.style.display = 'flex';
-  document.body.style.overflow = 'hidden';
-}*/
+// ─── OPEN CERT ───
 function openCert(path, title) {
-  const modal = document.getElementById('project-modal');
-  document.getElementById('modal-tags').innerHTML = '';
-  document.getElementById('modal-title').textContent = title;
-  document.getElementById('modal-desc').textContent = '';
-  document.getElementById('modal-metrics').innerHTML = '';
-  document.getElementById('modal-tech').textContent = '';
-  document.getElementById('modal-link').innerHTML = '';
-
-  const imgContainer = document.getElementById('modal-img-container');
-  
-  // Détecte si c'est une image ou un PDF
-  if (path.match(/\.(png|jpg|jpeg|webp)$/i)) {
-    imgContainer.innerHTML = `<img src="${path}" style="width:100%; border-radius: 1rem 1rem 0 0; object-fit: contain; max-height: 500px;">`;
-  } else {
-    imgContainer.innerHTML = `<iframe src="${path}" height="500px"></iframe>`;
-  }
-
-  const vid = document.getElementById('modal-video');
-  vid.style.display = 'none'; vid.src = '';
-  modal.style.display = 'flex';
-  document.body.style.overflow = 'hidden';
+  // Open directly in new tab — works for both PDF and images on all browsers/mobile
+  window.open(path, '_blank');
 }
 
 // ─── CLOSE MODAL ───
@@ -311,35 +241,26 @@ function closeModal() {
   const vid = document.getElementById('modal-video');
   vid.pause(); vid.src = '';
 }
+window.addEventListener('click', e => { if (e.target.id === 'project-modal') closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-window.addEventListener('click', e => {
-  if (e.target.id === 'project-modal') closeModal();
-});
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') closeModal();
-});
-
-// ─── INTERSECTION OBSERVER (sections + skill bars) ───
+// ─── INTERSECTION OBSERVER ───
 const io = new IntersectionObserver(entries => {
   entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-      io.unobserve(entry.target);
-    }
+    if (entry.isIntersecting) { entry.target.classList.add('visible'); io.unobserve(entry.target); }
   });
 }, { threshold: 0.1 });
 
-document.querySelectorAll('.skill-block, .tl-card, .project-card, .stat-card, .cert-card').forEach(el => {
+const styleTag = document.createElement('style');
+styleTag.textContent = `.visible { opacity:1 !important; transform:none !important; }`;
+document.head.appendChild(styleTag);
+
+document.querySelectorAll('.skill-block, .tl-card, .project-card, .stat-card, .cert-card, .research-card, .stack-item').forEach(el => {
   el.style.opacity = '0';
   el.style.transform = 'translateY(20px)';
   el.style.transition = 'opacity .6s ease, transform .6s ease';
   io.observe(el);
 });
-
-// Add visible class handler
-const styleTag = document.createElement('style');
-styleTag.textContent = `.visible { opacity: 1 !important; transform: none !important; }`;
-document.head.appendChild(styleTag);
 
 // ─── CONTACT FORM ───
 const form = document.getElementById('contact-form');
@@ -350,20 +271,13 @@ if (form) {
     const status = document.getElementById('form-status');
     btn.disabled = true;
     btn.innerHTML = '<i class="bi bi-hourglass-split"></i> Sending…';
-
     try {
-      const res = await fetch(form.action, {
-        method: 'POST',
-        body: new FormData(form),
-        headers: { Accept: 'application/json' }
-      });
+      const res = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
       if (res.ok) {
         status.style.color = '#22c55e';
         status.textContent = "✓ Message sent! I'll get back to you soon.";
         form.reset();
-      } else {
-        throw new Error();
-      }
+      } else throw new Error();
     } catch {
       status.style.color = '#ef4444';
       status.textContent = '✗ Something went wrong. Please email me directly.';
@@ -377,6 +291,5 @@ if (form) {
 // ─── INIT ───
 document.addEventListener('DOMContentLoaded', () => {
   initDarkMode();
-  const firstFilter = document.querySelector('.filter-btn');
-  if (firstFilter) firstFilter.classList.add('active');
+  document.querySelector('.filter-btn')?.classList.add('active');
 });
