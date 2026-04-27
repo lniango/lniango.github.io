@@ -152,15 +152,17 @@ const projectData = {
     tags: ["Medical AI", "Computer Vision", "Classification"]
   },
   unet: {
-    title: "Medical Image Segmentation with U-Net",
+    title: "Cell Segmentation & Tracking with U-Net",
     desc: "Implementation of a U-Net architecture for pixel-level semantic segmentation on medical imaging datasets. Designed for precise delineation of anatomical structures and pathologies.",
     tech: "PyTorch, Python, U-Net, CNN, Segmentation",
+    link: "https://github.com/lniango/Segmentation_tracking",
     tags: ["Medical AI", "Segmentation", "U-Net", "Computer Vision"]
   },
   multiview: {
     title: "Multi-view 3D Reconstruction",
     desc: "Pipeline combining geometry-based (camera calibration, epipolar geometry) and learning-based methods to recover dense 3D structure from multiple 2D image observations.",
     tech: "Python, PyTorch, Open3D, OpenCV, Multi-view Geometry",
+    link: "https://github.com/lniango/3D_reconstruction",
     tags: ["3D Reconstruction", "Multi-view Geometry", "Computer Vision"]
   },
   opengl: {
