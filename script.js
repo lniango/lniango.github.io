@@ -162,6 +162,7 @@ const projectData = {
     title: "Multi-view 3D Reconstruction",
     desc: "Pipeline combining geometry-based (camera calibration, epipolar geometry) and learning-based methods to recover dense 3D structure from multiple 2D image observations.",
     tech: "Python, PyTorch, Open3D, OpenCV, Multi-view Geometry",
+    imgs: ["images/recons_ball.png"],
     link: "https://github.com/lniango/3D_reconstruction",
     tags: ["3D Reconstruction", "Multi-view Geometry", "Computer Vision"]
   },
@@ -195,6 +196,9 @@ function openProject(key) {
   const modal = document.getElementById('project-modal');
 
   document.getElementById('modal-tags').innerHTML = (p.tags || []).map(t => `<span>${t}</span>`).join('');
+  /* XSS vulnerability : injection vulnerability 
+  - the hacker adds a malliceous code through input parameters from client side
+  textContent rather than innerHTML*/
   document.getElementById('modal-title').textContent = p.title;
   document.getElementById('modal-desc').textContent = p.desc;
   document.getElementById('modal-tech').textContent = p.tech || '';
